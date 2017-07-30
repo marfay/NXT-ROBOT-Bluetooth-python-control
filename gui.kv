@@ -1,0 +1,76 @@
+MainWindow:
+    orientation: 'vertical'
+    BoxLayout:
+        size_hint_y: 0.1
+        Button:
+            text: 'Control'
+            on_press: sm1.current='control'
+        Button:
+            text: 'Bluetooth'
+            on_press: sm1.current='Bluetooth'
+        Button:
+            text: 'jump'
+            on_press: root.function_jump()
+        Button:
+            text: 'sensor'
+            on_press: root.sensor_ultrasonic()
+        Button:
+            text: 'motors'
+            on_press: root.start_motors()
+        Button:
+            on_press: root.start_drawing()
+    BoxLayout:
+        ScreenManager:
+            id: sm1
+            Screen:
+                name: 'control'
+                RelativeLayout:
+                    id: display
+                    canvas:
+                        Color:
+                            rgba: 0,1,0,0
+                        Rectangle:
+                            size:self.size
+                            pos: self.pos
+
+            Screen:
+                name: 'Bluetooth'
+                BoxLayout:
+                    orientation:'vertical'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        Button:
+                            text: 'STOP'
+                            on_press: root.STOP()
+                        Button:
+                            text: 'Connect'
+                            on_press: root.thread_connect()
+                        ProgressBar:
+                            size_hint_y: 0.05
+                            id: pb_con
+                            max: 100
+                            value: 0
+                        Button:
+                            text: 'Disconnect'
+                            on_press: root.disconnect()
+                    BoxLayout:
+                        orientation: 'vertical'
+                        BoxLayout:
+                            BoxLayout:
+                                orientation:
+                                Button:
+                                    text: 'Discover devices'
+                                    on_press: root.dis_dev()
+                                Spinner:
+                                    id: devices
+                                    on_text: root.set_device_id()
+                            TextInput:
+                                id: id_for_bluetooth
+                                text: root.MY_BRICK_ID
+                        ProgressBar:
+                            size_hint_y: 0.05
+                            id: pb_discover
+                            max: 100
+                            value: 0
+
+
